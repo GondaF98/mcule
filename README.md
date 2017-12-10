@@ -9,6 +9,7 @@ Some examples:
 + `A.B.C.C` and `C.A.B.C` are the same compounds because they have the exact same components with the exact same multiplicity.
 
 Write a management command (`mol/management/commands/load_compounds.py`) that iterates over the SMILES string entries (lines in the data file) and load them into the database in the following way:
+
 * Create a compound if it is not in the database yet thus duplicate compounds are not allowed. Use the `Compound` model in `mol/models.py` to store them, you have to write the missing model field definitions.
 * If the compound is a multicomponent compound create component relations for the "parent" compound. Use the `ComponentRelation` model in `mol/models.py` and write the missing model field definitions. So for example for the `A.B.B` compound you should create the following relations: parent: `A.B.B`, components: `A` with multiplicity 1, `B` with multiplicity 2.
 
