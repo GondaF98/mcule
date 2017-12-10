@@ -1,6 +1,6 @@
-Clone this git repository to you computer. The repository contains the skeleton of a Django 1.11.7 project called "mol" using Python2. We created some files already (`mol/models.py`, `mol/admin.py`, `mol/management/commands/load_compounds.py`), you have to write the missing parts only. Feel free to create new files / modify settings if you think it's needed but we believe everything is already there for you. You can just use sqlite for the database.
+Clone this git repository to your computer. The repository contains the skeleton of a Django 1.11.7 project called "mol" using Python2. We created some files already (`mol/models.py`, `mol/admin.py`, `mol/management/commands/load_compounds.py`), you have to write the missing parts only. Feel free to create new files / modify settings if you think it's needed but we believe everything is already there for you. You can just use sqlite for the database.
 
-You can find a file called `data.smi` in the root directory. Every line in the data file is a so called "SMILES string" and it describes a "compound". A compound can be a multicomponent one. The componens are separated with dots and the components themselves are compounds as well. Let's call the number of occurences of a component inside a compound "multiplicity".
+You can find a file called `data.smi` in the root directory. Every line in the data file is a so called "SMILES string" and it describes a "compound". A compound can be a multicomponent one. The components are separated with dots and the components themselves are compounds as well. Let's call the number of occurences of a component inside a compound "multiplicity".
 
 Some examples:
 
@@ -10,7 +10,7 @@ Some examples:
 
 Write a management command (`mol/management/commands/load_compounds.py`) that iterates over the SMILES string entries (lines in the data file) and load them into the database in the following way:
 
-- Create a compound if it is not in the database yet thus duplicate compounds are not allowed. Use the `Compound` model in `mol/models.py` to store them, you have to write the missing model field definitions.
+- Create a compound only if it is not in the database yet thus duplicate compounds are not allowed. Use the `Compound` model in `mol/models.py` to store them, you have to write the missing model field definitions.
 - If the compound is a multicomponent compound create component relations for the "parent" compound. Use the `ComponentRelation` model in `mol/models.py` and write the missing model field definitions. So for example for the `A.B.B` compound you should create the following relations: parent: `A.B.B`, components: `A` with multiplicity 1, `B` with multiplicity 2.
 
 
