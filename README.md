@@ -3,9 +3,10 @@ Clone the following git repository to you computer. The repository contains the 
 You can find a file called "data" in the root directory. Every line in the data file is a so called "SMILES string" and it describes a "compound". A compound can be a multicomponent one. The componens are separated with dots and the components themselves are compounds as well. Let's call the number of occurences of a component inside a compound "multiplicity".
 
 Some examples:
-* the `A.B.B.C.C.C` SMILES string describes a multicomponent compound where the components are `A` with multiplicity 1, `B` with multiplicity 2 and `C` with multiplicity 3. `A`, `B`, and `C` are compounds as well.
-* `ABCDEFGH` is a not a multicomponent compound since it doesn't contain dots.
-* `A.B.C.C` and `C.A.B.C` are the same compounds because they have the exact same components with the exact same multiplicity.
+
++ the `A.B.B.C.C.C` SMILES string describes a multicomponent compound where the components are `A` with multiplicity 1, `B` with multiplicity 2 and `C` with multiplicity 3. `A`, `B`, and `C` are compounds as well.
++ `ABCDEFGH` is a not a multicomponent compound since it doesn't contain dots.
++ `A.B.C.C` and `C.A.B.C` are the same compounds because they have the exact same components with the exact same multiplicity.
 
 Write a management command (`mol/management/commands/load_compounds.py`) that iterates over the SMILES string entries (lines in the data file) and load them into the database in the following way:
 * Create a compound if it is not in the database yet thus duplicate compounds are not allowed. Use the `Compound` model in `mol/models.py` to store them, you have to write the missing model field definitions.
