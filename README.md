@@ -1,0 +1,2 @@
+# django-exercise-01
+
