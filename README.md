@@ -4,14 +4,14 @@ You can find a file called "data" in the root directory. Every line in the data 
 
 Some examples:
 
-+ the `A.B.B.C.C.C` SMILES string describes a multicomponent compound where the components are `A` with multiplicity 1, `B` with multiplicity 2 and `C` with multiplicity 3. `A`, `B`, and `C` are compounds as well.
-+ `ABCDEFGH` is a not a multicomponent compound since it doesn't contain dots.
-+ `A.B.C.C` and `C.A.B.C` are the same compounds because they have the exact same components with the exact same multiplicity.
+- the `A.B.B.C.C.C` SMILES string describes a multicomponent compound where the components are `A` with multiplicity 1, `B` with multiplicity 2 and `C` with multiplicity 3. `A`, `B`, and `C` are compounds as well.
+- `ABCDEFGH` is a not a multicomponent compound since it doesn't contain dots.
+- `A.B.C.C` and `C.A.B.C` are the same compounds because they have the exact same components with the exact same multiplicity.
 
 Write a management command (`mol/management/commands/load_compounds.py`) that iterates over the SMILES string entries (lines in the data file) and load them into the database in the following way:
 
-* Create a compound if it is not in the database yet thus duplicate compounds are not allowed. Use the `Compound` model in `mol/models.py` to store them, you have to write the missing model field definitions.
-* If the compound is a multicomponent compound create component relations for the "parent" compound. Use the `ComponentRelation` model in `mol/models.py` and write the missing model field definitions. So for example for the `A.B.B` compound you should create the following relations: parent: `A.B.B`, components: `A` with multiplicity 1, `B` with multiplicity 2.
+- Create a compound if it is not in the database yet thus duplicate compounds are not allowed. Use the `Compound` model in `mol/models.py` to store them, you have to write the missing model field definitions.
+- If the compound is a multicomponent compound create component relations for the "parent" compound. Use the `ComponentRelation` model in `mol/models.py` and write the missing model field definitions. So for example for the `A.B.B` compound you should create the following relations: parent: `A.B.B`, components: `A` with multiplicity 1, `B` with multiplicity 2.
 
 
 Example data:
@@ -28,11 +28,12 @@ After loading this data the database should contain the following compounds:
 `A`, `B`, `A.B`, `C`, `A.B.C.C`, `A.B.B`
 
 And the following component relations:
-* `A.B` - parent: `A.B`, components: `A` with multiplicity 1, `B` with multiplicity 1
-* `A.B.C.C` - parent: `A.B.C.C`, components: `A` with multiplicity 1, `B` with multiplicity 1, `C` with multiplicity 2
-* `B.A` is the same as `A.B` because it has the exact same components with the exact same multiplicity so it must be skipped
-* `A.B.B` - parent: `A.B.B`, components: `A` with multiplicity 1, `B` with multiplicity 2
-* `C.A.B.C` is the same as `A.B.C.C` because it has the exact same components with the exact same multiplicity so it must be skipped
+
+- `A.B` - parent: `A.B`, components: `A` with multiplicity 1, `B` with multiplicity 1
+- `A.B.C.C` - parent: `A.B.C.C`, components: `A` with multiplicity 1, `B` with multiplicity 1, `C` with multiplicity 2
+- `B.A` is the same as `A.B` because it has the exact same components with the exact same multiplicity so it must be skipped
+- `A.B.B` - parent: `A.B.B`, components: `A` with multiplicity 1, `B` with multiplicity 2
+- `C.A.B.C` is the same as `A.B.C.C` because it has the exact same components with the exact same multiplicity so it must be skipped
 
 Checking whether a multicomponent compound already exists in the database with the exact same components should be done on the database level. It is important that you can't manipulate/normalize the entry strings in a way so that you somehow convert `B.A` to `A.B` before checking and loading it. You have to write a database query using the django ORM to check it. A good place to do it is in a manager class, this is why we prepared the `get_with_same_components` method of the `CompoundManager` class in `mol/models.py` for you.
 
