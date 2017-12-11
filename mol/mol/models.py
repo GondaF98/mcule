@@ -5,11 +5,13 @@ from django.utils.translation import ugettext_lazy as _
 class CompoundManager(models.Manager):
 
     def get_with_same_components(self, ):
+        pass
 
 
 class Compound(models.Model):
-    smiles =
-    components =
+    # replace None with field definitions
+    smiles = None
+    components = None
     created_at = models.DateTimeField(
         _("created at"),
         auto_now_add=True,
@@ -21,6 +23,7 @@ class Compound(models.Model):
 
 
 class ComponentRelation(models.Model):
-    parent =
-    component =
-    multiplicity =
+    # replace None with field definitions
+    parent = None
+    component = None
+    multiplicity = None

@@ -5,3 +5,4 @@ from mol.models import Compound, ComponentRelation
 class Command(BaseCommand):
 
     def handle(self, *args, **options):
+        pass

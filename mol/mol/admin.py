@@ -4,13 +4,14 @@ from . import models
 
 
 class ComponentRelationInline(admin.StackedInline):
+    pass
 
 
 class CompoundAdmin(admin.ModelAdmin):
     list_display = (
         "smiles",
         )
-    inlines =
+    inlines = []
 
 
 class ComponentRelationAdmin(admin.ModelAdmin):
