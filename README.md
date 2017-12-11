@@ -37,6 +37,9 @@ And the following component relations:
 
 Checking whether a multicomponent compound already exists in the database with the exact same components should be done on the database level. It is important that you can't manipulate/normalize the entry strings in a way so that you somehow convert `B.A` to `A.B` before checking and loading it. You have to write a database query using the django ORM to check it. A good place to do it is in a manager class, this is why we prepared the `get_with_same_components` method of the `CompoundManager` class in `mol/models.py` for you.
 
+Complete `mol/admin.py` so that components are displayed as stacked inlines for a multicomponent compound.
+Complete the code of the `ComponentRelationInline` class and the code of `ComponentRelationAdmin.inlines`.
+
 Bonus task:
 Write an API endpoint that returns compounds with their components using Django REST framework (http://www.django-rest-framework.org/).
 We won't give you detailed instructions on how to do it, we let your imagination fly. :)
